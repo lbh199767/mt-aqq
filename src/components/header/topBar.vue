@@ -13,7 +13,7 @@
 import geo from './geo.vue'
 import MNav from './nav'
 export default {
-  components:{
+  components: {
     geo,
     MNav
   }
