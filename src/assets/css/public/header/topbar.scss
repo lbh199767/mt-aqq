@@ -11,7 +11,11 @@
   .m-geo {
     color: #666;
     font-size: 12px;
-    .position,
+    .position{
+      a{
+        margin: 0 2px;
+      }
+    }
     .m-user {
       display: inline-block;
     }

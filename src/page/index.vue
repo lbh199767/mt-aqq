@@ -15,7 +15,7 @@
       </el-row>
       <el-row>
           <el-col :span="24">
-              <container/>
+              <container :nav="recomment"/>
           </el-col>
       </el-row>
   </div>
@@ -30,6 +30,7 @@ export default {
     data(){
         return {
             iStyle:{
+                class:"istyle",
                 title:'有格调',
                 list:[{
                     text:'全部',
@@ -46,6 +47,20 @@ export default {
                 },{
                     text:'品质出游',
                     tab:'travel',
+                }]
+            },
+            recomment:{
+                class:'youhui',
+                title:'很优惠',
+                list:[{
+                    text:'全部',
+                    tab:'all'
+                },{
+                    text:'美食',
+                    tab:'food'
+                },{
+                    text:'休闲',
+                    tab:"xiuxian"
                 }]
             }
         }

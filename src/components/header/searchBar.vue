@@ -6,7 +6,7 @@
         </el-col>
         <el-col :span='15' class="center">
           <div class="wrapper">
-            <el-input v-model='searchWord' placeholder="请输入内容" @blur="blur" @focus="focus"></el-input>
+            <el-input v-model="searchWord" placeholder="搜索商家或附近地点" @input="input" @blur="blur" @focus="focus"></el-input>
             <el-button type="primary" icon="el-icon-search"></el-button>
             <dl class="hotPlace" v-if="isHotPlace">
               <dt>热门搜索</dt>
@@ -21,25 +21,31 @@
               
             </dl>
           </div>
-          <p class="suggest">
-            <a href="#" v-for="(item,index) in hotPlaceList" :key="index">{{item}}</a>
+          <p class="suggest" >
+            <a href="#" v-for="(item,index) in hotPlaceList" :key="index" >{{item}}</a>
           </p>
         </el-col>
-
+ 
       </el-col>
   </div>
 </template>
 
 <script>
+import api from '@/api/index.js'
 export default {
   data () {
     return {
       searchWord: '',
       isFocus:false,
-      hotPlaceList:['京东第一温泉度假村','99旅馆连锁','尚可优快捷酒店','7天连锁酒店'],
-      searchList:['火锅','火锅自助','火锅 重庆'],
+      hotPlaceList:[],
+      searchList:[],
       // suggest:[]
     }
+  },
+  created(){
+    api.searchHotWords().then(res=>{
+     this.hotPlaceList=res.data.data;
+    })
   },
   computed:{
     isHotPlace(){
@@ -58,6 +64,14 @@ export default {
       setTimeout(function(){
         self.isFocus=false;
       },200);
+    },
+    input(){
+      let val=this.searchWord
+      api.getsearchList().then(res=>{
+        this.searchList=res.data.data.list.filter((item,index) => {
+          return item.indexOf(val)>-1
+        });
+      })
     }
   }
 
